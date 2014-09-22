@@ -1,0 +1,7 @@
+<?php
+$connect_error = 'Sorry, we\'re experiencing connection problems.';
+// hostname, username, password
+mysql_connect("localhost","charley","1234a") or die($connection_error);
+//pick database
+mysql_select_db("practicedatabase") or die($connection_error);
+?>
