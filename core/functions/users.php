@@ -1,5 +1,21 @@
 <?php
 
+function update_user($dbcon, $update_data, $session_user_id) {
+	// Sanitizes each value in the array
+	$update = array();
+	array_walk($update_data, 'array_sanitize');
+
+	foreach ($update_data as $field => $data) {
+		$update[] = '`' . $field . '` = \'' . $data . '\'';
+	}
+	//print_r($update);
+	//die();
+	
+	$sql = "UPDATE `users` SET " . implode(', ', $update) . " WHERE user_id = $session_user_id";
+	$result = $dbcon->query($sql);
+
+	}
+
 function activate($dbcon, $email, $email_code){
 	$email 		= mysql_real_escape_string($email);
 	$email_code	= mysql_real_escape_string($email_code);
