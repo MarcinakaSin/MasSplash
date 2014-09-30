@@ -1,9 +1,6 @@
 <?php
 $connect_error = 'Sorry, we\'re experiencing connection problems.';
-// hostname, username, password
-//mysql_connect("localhost","root","") or die($connection_error);
-//pick database
-//mysql_select_db("users") or die($connection_error);
+
 // hostname, username, password, database
 $dbname = "users";
 $dbuser = "root";

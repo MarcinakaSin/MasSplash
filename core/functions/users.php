@@ -1,6 +1,29 @@
 <?php
+function recover($dbcon, $mode, $email){
+	$mode 	= sanitize($mode);
+	$email 	= sanitize($email);
 
-function update_user($dbcon, $update_data, $session_user_id) {
+	$user_data = user_data($dbcon, user_id_from_email($dbcon, $email), 'first_name', 'username');
+
+	if($mode == 'username'){
+		//recover username
+		email($email, 'Your username', "Hello " . $user_data['first_name'] . ", \n\nYour username is: " . $user_data['username'] . "\n\n -MasSplash");
+	} else if($mode == 'password') {
+		//recover password
+		$generated_password = substr(md5(rand(999, 999999)), 0, 8);
+		//die($generated_password);
+		change_password($dbcon, $user_data['user_id'], $generated_password);
+
+		update_user($dbcon, $user_data['user_id'], array('password_recover' => '1'));
+
+
+		email($email, 'Your password reovery', "Hello " . $user_data['first_name'] . ", \n\nYour new password is: " . $generated_password . "\n\n -MasSplash");
+
+	}
+}
+
+
+function update_user($dbcon, $user_id, $update_data) {
 	// Sanitizes each value in the array
 	$update = array();
 	array_walk($update_data, 'array_sanitize');
@@ -11,14 +34,14 @@ function update_user($dbcon, $update_data, $session_user_id) {
 	//print_r($update);
 	//die();
 	
-	$sql = "UPDATE `users` SET " . implode(', ', $update) . " WHERE user_id = $session_user_id";
+	$sql = "UPDATE `users` SET " . implode(', ', $update) . " WHERE user_id = $user_id";
 	$result = $dbcon->query($sql);
 
-	}
+}
 
 function activate($dbcon, $email, $email_code){
-	$email 		= mysql_real_escape_string($email);
-	$email_code	= mysql_real_escape_string($email_code);
+	//$email 		= mysql_real_escape_string($email);
+	//$email_code	= mysql_real_escape_string($email_code);
 
 	$count = $dbcon->prepare("SELECT COUNT(`user_id`) FROM `users` WHERE `email` = ? AND `email_code` = ? AND `active` = 0 LIMIT 1");
 	$count->bind_param('ss', $email, $email_code);
@@ -28,7 +51,6 @@ function activate($dbcon, $email, $email_code){
 	$count->close();  // required for second sql statement to work
 	
 	if(($user_count == 1) ? true : false) {
-
 		$user_status = 1;
 		$update = $dbcon->prepare("UPDATE `users` SET `active` = ? WHERE `email` = ?");
 		$update->bind_param('is', $user_status, $email);
@@ -36,7 +58,6 @@ function activate($dbcon, $email, $email_code){
 
 		return true;
 	} else {
-
 		return false;
 	}
 
@@ -45,9 +66,9 @@ function activate($dbcon, $email, $email_code){
 function change_password($dbcon, $user_id, $password){
 	$user_id = (int)$user_id;
 	$password = md5($password);
-
-	$update = $dbcon->prepare("UPDATE `users` SET `password` = ? WHERE `user_id` = ?");
-	$update->bind_param('si', $password, $user_id);
+	$password_recover = 0;
+	$update = $dbcon->prepare("UPDATE `users` SET `password` = ?, `password_recover` = ? WHERE `user_id` = ?");
+	$update->bind_param('sii', $password, $password_recover, $user_id);
 	$update->execute();
 	$update->close();
 }
@@ -137,10 +158,10 @@ function user_exists($dbcon, $username) {
 }
 
 function email_exists($dbcon, $email){
-
+	//$email = sanitize($email);
 	// Set up mySQL statement
 	$count = $dbcon->prepare("SELECT COUNT(user_id) FROM users WHERE email = ? LIMIT 1");
-	// Sanitizes input values for mySQL statement
+	// Bind input values for mySQL statement
 	$count->bind_param('s', $email);
 	// Executes mySQL statement
 	$count->execute();
@@ -172,6 +193,18 @@ function user_id_from_username($dbcon, $username) {
 
 	$count = $dbcon->prepare("SELECT user_id FROM users WHERE username = ? LIMIT 1");
 	$count->bind_param('s', $username);
+	$count->execute();
+	$count->bind_result($user_id);
+	$count->fetch();
+	$count->close();
+
+	return $user_id;
+}
+
+function user_id_from_email($dbcon, $email) {
+	$email = sanitize($email);
+	$count = $dbcon->prepare("SELECT user_id FROM users WHERE username = ? LIMIT 1");
+	$count->bind_param('s', $email);
 	$count->execute();
 	$count->bind_result($user_id);
 	$count->fetch();

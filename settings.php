@@ -42,7 +42,7 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 			);
 	//print_r($update_data);
 
-	update_user($dbcon, $update_data, $session_user_id);
+	update_user($dbcon, $session_user_id, $update_data);
 	header('Location: settings.php?success' );
 	exit();
 

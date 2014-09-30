@@ -40,7 +40,11 @@ if(isset($_GET['success']) && empty($_GET['success'])) {
 	echo 'Your password has been changed.';
 
 } else {
-
+	if(isset($_GET['force']) && empty($_GET['force'])) {
+	?>
+	<p> You must change your password. </p>
+	<?php
+	}
 		// If data is posted and there's no errors.
 	if(empty($_POST) === false && empty($errors) === true){
 		change_password($dbcon, $session_user_id, $_POST['password']);

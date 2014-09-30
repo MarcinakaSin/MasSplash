@@ -1,6 +1,6 @@
 <?php 
 include 'core/init.php';
-	// Kick out logged in users
+	// Kicks out logged in users
 logged_in_redirect();
 include 'includes/overall/header.php'; 
 if (isset($_GET['success']) === true && empty($_GET['success']) === true) {
