@@ -7,4 +7,16 @@ include 'includes/overall/header.php';
 <p>Just a template.</p>
 
 		
-<?php include 'includes/overall/footer.php'; ?>
+<?php 
+if (logged_in() === true){  
+	if (has_access($dbcon, $session_user_id, 1) === true){
+		echo 'Admin';
+	} else if (has_access($dbcon, $session_user_id, 2) === true){
+		echo 'Moderator!';
+	}
+}
+
+
+
+
+include 'includes/overall/footer.php'; ?>

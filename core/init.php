@@ -18,7 +18,7 @@ if (logged_in() === true){
 	// Grabs user_id from php session variable.
 	$session_user_id = $_SESSION['user_id'];
 	// Stores user information that can be accessed throughout the site.
-	$user_data = user_data($dbcon, $session_user_id, 'user_id', 'username', 'password', 'first_name', 'last_name', 'email', 'password_recover');
+	$user_data = user_data($dbcon, $session_user_id, 'user_id', 'username', 'password', 'first_name', 'last_name', 'email', 'password_recover', 'type', 'allow_email');
 	//echo $user_data['username'];
 	if (user_active($dbcon, $user_data['username']) === false) {
 		session_destroy();

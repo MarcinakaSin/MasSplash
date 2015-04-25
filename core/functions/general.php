@@ -20,6 +20,15 @@ function protect_page(){
 	}
 }
 
+function admin_protect(){
+	global $dbcon;
+	global $user_data;
+	if(has_access($dbcon, $user_data['user_id'], 1) === false){
+		header('Location: index.php');
+		exit();
+	}
+}
+
   // filters for html and mysql injections
 function array_sanitize($item) {
 	$item = htmlentities(strip_tags(mysql_real_escape_string($item)));

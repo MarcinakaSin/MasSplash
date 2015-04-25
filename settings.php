@@ -34,15 +34,18 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 	echo 'Your details have been updated.';
 } else {
 	if(empty($_POST) === false && empty($errors) === true){
-
+		//echo $_POST['allow_email'];
+		$allow_email = ($_POST['allow_email'] == 'on') ? 1 : 0;
 		$update_data = array(
 			'first_name' 	=> $_POST['first_name'],
 			'last_name' 	=> $_POST['last_name'],
-			'email' 		=> $_POST['email']
+			'email' 		=> $_POST['email'],
+			'allow_email'	=> $allow_email
 			);
 	//print_r($update_data);
 
 	update_user($dbcon, $session_user_id, $update_data);
+	//echo $allow_email;
 	header('Location: settings.php?success' );
 	exit();
 
@@ -61,6 +64,9 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 		</li>
 		<li>E-mail*:<br>
 			<input type="text" name="email" value="<?php echo $user_data['email']; ?>">
+		</li>
+		<li>
+			<input type="checkbox" name="allow_email" <?php if($user_data['allow_email'] == 1){ echo 'checked="checked"'; } ?> > Would you like to receive email from us?
 		</li>
 		<li>
 			<input type="submit" value="Update">

@@ -1,4 +1,25 @@
 <?php
+function has_access($dbcon, $user_id, $type){
+	$user_id 	= (int)$user_id;
+	$type		= (int)$type;
+	$count = $dbcon->prepare("SELECT COUNT(user_id) FROM users WHERE user_id = ? AND type = ? LIMIT 1");
+	$count->bind_param('ii', $user_id, $type);
+	$count->execute();
+	$count->bind_result($user_count);
+	$count->fetch();
+	$count->close();
+
+	return $user_count === 1;
+
+	/*if(($user_count == 1) ? true : false) {
+		return true;
+	} else {
+		return false;
+	}*/
+
+}
+
+
 function recover($dbcon, $mode, $email){
 	$mode 	= sanitize($mode);
 	$email 	= sanitize($email);
