@@ -1,19 +1,14 @@
-<div class="widget">
-	<h2>Hello, <?php echo $user_data['first_name']; ?></h2>
-	<div class="inner">
-		<ul>
-			<li>
-				<a href="logout.php">Log out</a>
-			</li>
-			<li>
-				<a href="/MasSplash/<?php echo $user_data['username']; ?>">Profile</a>
-			</li>
-			<li>
-				<a href="changepassword.php">Change Password</a>
-			</li>
-			<li>
-				<a href="settings.php">Settings</a>
-			</li>
-		</ul>
+<div class="row navbar-right">
+	<div class="col-sm-12">
+		<small class="white-text" style="margin:5px;">
+		<?php
+			$user_count	= user_count($dbcon);
+			$suffix = ($user_count != 1) ? 's' : '';
+		?>
+		We currently have <?php echo user_count($dbcon); ?> registered user<?php echo $suffix; ?>.
+		</small><br />
+		<p class="pull-right" style="margin:5px;">
+		<a href="logout.php">Log out</a>
+		</p>
 	</div>
 </div>

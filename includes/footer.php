@@ -5,3 +5,4 @@ mysqli_close($dbcon);
 <footer>
 	&copy; Marcin <--- all rights are mine.
 </footer>
+</div>

@@ -1,3 +1,7 @@
+.white-text{
+	color: #fff;
+}
+
 /* Resets */
 ul {
 	padding:0;
@@ -9,20 +13,6 @@ h1, h2 {
 	padding:0;
 	margin:0 0 20px 0;
 	font-weight:normal;
-}
-
-p {
-	padding:0;
-	margin:0 0 20px 0;
-}
-
-a:link, a:visited {
-	text-decoration:underline;
-	color:#000;
-}
-
-a:hover {
-	text-decoration:none;
 }
 
 ul li {
@@ -50,32 +40,6 @@ h2 {
 	color:#fff;
 }
 
-/* Containers */
-body {
-	background:#fff;
-	font-family:Arial;
-	font-size:0.8em;
-	background-color: gray;
-}
-
-#container, footer {
-	background:#fff;
-	width:920px;
-	margin:0 auto;
-	padding:20px;
-}
-
-header {
-	width:940px;
-	padding:10px;
-	margin:0 auto 10px auto;
-}
-
-#container {
-	min-height:500px;
-	border-radius:5px 5px 0 0;
-}
-
 footer {
 	border-radius:0 0 5px 5px;
 }
@@ -94,33 +58,6 @@ footer {
 .widget .inner {
 	margin:0 10px;
 }
-
-/* Navigation */
-nav {
-	float:left;
-}
-
-nav ul {
-	margin:0;
-}
-
-nav ul li {
-	display:inline;
-	margin-right:10px;
-}
-
-nav ul li a {
-	text-decoration:none;
-}
-
-nav ul li.current {
-	font-weight:bold;
-}
-
-nav ul li a.last {
-	border-right:0;
-}
-
 
 /* Aside */
 aside {
