@@ -1,4 +1,15 @@
 <?php
+function mail_users($dbcon, $subject, $body){
+
+	//$query = mysql_query("SELECT 'email', 'first_name' FROM 'users' WHERE 'allow_email' = 1");
+	$sql = "SELECT email, first_name FROM users WHERE allow_email = 1";
+	$result = $dbcon->query($sql);
+	$user_query = $result->fetch_assoc();
+	while(($row = $user_query) !== false) {
+		email($row['email'], $subject, "Hello" . $row['first_name'] . ",\n\n" . $body);
+	}
+}
+
 function has_access($dbcon, $user_id, $type){
 	$user_id 	= (int)$user_id;
 	$type		= (int)$type;

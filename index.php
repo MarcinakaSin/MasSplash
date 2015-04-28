@@ -7,7 +7,7 @@ include 'includes/overall/header.php';
 <p>Just a template.<br />
 This site was built and costumized by Marcin Ufnairz.  
 I have a repository for it on <a href="https://github.com/" target="_new">GitHub</a> and anyone is permited to copy this site 
-and use it's code for any create purposes.<br />
+and use it's code for any creative purposes.<br />
 <a href="https://github.com/MarcinakaSin/MasSplash" target="_new">https://github.com/MarcinakaSin/MasSplash</a>
 </p>
 

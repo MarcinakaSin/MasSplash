@@ -5,4 +5,3 @@
 	<body>
 		<?php include 'includes/header.php'; ?>
 		<div class="container">
-			<?//php include 'includes/aside.php'; ?>
