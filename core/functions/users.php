@@ -1,4 +1,15 @@
 <?php
+function change_profile_image($dbcon, $session_user_id, $file_temp, $file_extn){
+	$file_path = 'images/profile/' . substr(md5(time()), 0, 10) . '.' . $file_extn;
+	move_uploaded_file($file_temp, $file_path);
+
+	$update = $dbcon->prepare("UPDATE `users` SET `profile` = ? WHERE `user_id` = ?");
+	$update->bind_param('si', $file_path, $session_user_id);
+	$update->execute();
+	$update->close();
+}
+
+
 function mail_users($dbcon, $subject, $body){
 
 	//$query = mysql_query("SELECT 'email', 'first_name' FROM 'users' WHERE 'allow_email' = 1");
