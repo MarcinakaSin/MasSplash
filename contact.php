@@ -2,8 +2,12 @@
 include 'core/init.php';
 include 'includes/overall/header.php'; 
 ?>
-			
-<h1>Contact Info</h1>
+
+<div class="row">
+	<div class="page-header">
+		<h3>Contact Info</h3>
+	</div>
+</div>
 <p>Hi,<br />
 I'm a new programmer, with two years of programming experience in school and two years of professional front end development.  
 I'm still an amateur, and I won't sell myself as anything else.  However, all my life I've wanted to help others.

@@ -53,9 +53,11 @@ if(empty($_POST) === false){
 
 ?>
 		
-
-<h1>Register</h1>
-
+<div class="row">
+	<div class="page-header">
+		<h3>Register</h3>
+	</div>
+</div>
 <?php
 if(isset($_GET['success']) && empty($_GET['success'])){
 	echo 'You\'ve been registered successfully! Please check your e-mail to activate your account.';
@@ -79,45 +81,51 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 		// exit
 		exit();
 		//print_r($register_data);
-	} else if (empty($errors) === false){
-		// output errors
-		echo output_errors($errors);
-	}
+	} else if (empty($errors) === false){ ?>
 
-?>
 
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>
+			<?php 	echo output_errors($errors);	/*output errors*/  ?>
+		</strong>
+	</div>
+</div>
+		<?php	}	?>
+<div class="row">
+	<div class="col-sm-6">
 	<form action="" method="post">
-		<ul>
-			<li>
-				Username*:<br/>
-				<input type="text" name="username" value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>" required>
-			</li>
-			<li>
-				Password*:<br />
-				<input type="password" name="password" value="<?php if(isset($_POST['password'])) echo $_POST['password']; ?>" required>
-			</li>
-			<li>
-				Confirm Password*:<br />
-				<input type="password" name="validate_password" required>
-			</li>
-			<li>
-				First Name*:<br />
-				<input type="text" name="first_name" value="<?php if(isset($_POST['first_name'])) echo $_POST['first_name']; ?>" required>
-			</li>
-			<li>
-				Last Name:<br />
-				<input type="text" name="last_name" value="<?php if(isset($_POST['last_name'])) echo $_POST['last_name']; ?>">
-			</li>
-			<li>
-				Email*:<br/>
-				<input	type="text" name="email" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" required>
-			</li>
-			<li>
-				<input type="submit" value="Register">
-			</li>
-		</ul>
+		<div class="form-group">
+	    	<label for="username">Username*</label>
+			<input type="text" id="username" name="username" placeholder="Username" class="form-control" value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>" required />
+		</div>
+		<div class="form-group">
+	    	<label for="password">Password*</label>
+			<input type="password" id="password" name="password" placeholder="Password" class="form-control" value="<?php if(isset($_POST['password'])) echo $_POST['password']; ?>" required />
+		</div>
+		<div class="form-group">
+	    	<label for="validate_password">Confirm Password*</label>
+			<input type="password" id="validate_password" name="validate_password" placeholder="Confirm Password" class="form-control" required />
+		</div>
+		<div class="form-group">
+	    	<label for="first_name">First Name*</label>
+			<input type="text" id="first_name" name="first_name" placeholder="First Name" class="form-control" value="<?php if(isset($_POST['first_name'])) echo $_POST['first_name']; ?>" required />
+		</div>
+		<div class="form-group">
+	    	<label for="last_name">Last Name*</label>
+			<input type="text" id="last_name" name="last_name" placeholder="Last Name" class="form-control" value="<?php if(isset($_POST['last_name'])) echo $_POST['last_name']; ?>" required />
+		</div>
+		<div class="form-group">
+	    	<label for="email">E-mail*</label>
+			<input type="text" id="email" name="email" placeholder="E-mail" class="form-control" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" required />
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-default" value="Register">
+		</div>
 	</form>
-			
+	</div>
+</div>
 <?php
 }
  include 'includes/overall/footer.php'; ?>

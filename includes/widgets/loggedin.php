@@ -8,7 +8,7 @@
 		We currently have <?php echo user_count($dbcon); ?> registered user<?php echo $suffix; ?>.
 		</small><br />
 		<p class="pull-right" style="margin:5px;">
-		<a href="logout.php">Log out</a>
+		<a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Log out</a>
 		</p>
 	</div>
 </div>
