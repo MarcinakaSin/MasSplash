@@ -16,13 +16,8 @@
 		</div>
 	</div>
 	<div class="row white-text">
-		<div class="col-md-9 hidden-xs hidden-sm">
+		<div class="col-md-12 hidden-xs hidden-sm">
 			Forgotten your <a href="recover.php?mode=username">Username</a> or <a href="recover.php?mode=password">Password</a>?
-		</div>
-		<div class="col-xs-10 col-md-3">
-			<a href="register.php">Register</a>
-		</div>
-		<div class="col-xs-2 visible-xs visible-sm">
 		</div>
 	</div>
 </form>

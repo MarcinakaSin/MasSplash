@@ -3,9 +3,12 @@ include 'core/init.php';
 protect_page();
 include 'includes/overall/header.php'; 
 ?>
-			
-<h1>Forum</h1>
-<p>Just a template.</p>
+
+<div class="row">
+	<div class="page-header">
+		<h3>Forums</h3>
+	</div>
+</div>
 
 		
 <?php include 'includes/overall/footer.php'; ?>

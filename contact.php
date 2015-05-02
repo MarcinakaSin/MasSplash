@@ -17,7 +17,7 @@ I'm ready for the new.
 </p>
 <p>
 If you strive to help others and to engage in your community feel free to reach out to me.  
-If you need a front end programmer for a project that stops wars, weapon manufactoring, help veterans or for a million other 
+If you need a front end programmer for a project that stops wars, weapon manufactoring, helps veterans or for a million other 
 reasons I can't even think of.  If you'd like to help me develop something beautiful that engages a peace loving community
 reach out to me.
 </p>

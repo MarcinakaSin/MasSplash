@@ -3,8 +3,12 @@ include 'core/init.php';
 include 'includes/overall/header.php'; 
 ?>
 <div class="row">
-	<div class="col-sm-12">
-		<h1 class="page-header">Home</h1>
+	<div class="page-header">
+		<h3>Home</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
 		<p>
 			Just a template.<br />
 			This site was built and costumized by Marcin Ufnairz.  

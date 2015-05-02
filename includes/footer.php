@@ -2,9 +2,11 @@
 // Disconnect from Database
 mysqli_close($dbcon);
 ?>
-</div>
 <footer class="footer">
   	<div class="container">
-    	<p class="text-muted">&copy; Marcin <--- all rights are mine.</p>
+    	<p class="text-muted">&copy; Marcin</p>
   	</div>
 </footer>
+
+
+<script src="css/Bootstrap.3.3.4/bootstrap.min.js"></script>

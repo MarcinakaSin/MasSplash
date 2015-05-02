@@ -12,14 +12,32 @@ if(isset($_GET['username']) === true && empty($_GET['username']) === false){
 	?>
 
 
-			
-<h1><?php echo $profile_data['first_name'] ?>'s Profile</h1>
-<p><?php echo $profile_data['email'] ?></p>
+<div class="row">
+	<div class="page-header">
+		<h3><?php echo $profile_data['first_name'] ?>'s Profile</h3>
+	</div>
+</div>
+<div class="row">
+	<div>
+		<p><?php echo $profile_data['email'] ?></p>
+	</div>
+</div>
 
 
-	<?php
-	} else {
-		echo 'Sorry, that user doesn\'t exist.';
+<?php
+	} else { 
+?>
+
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>
+			Sorry, that user doesn\'t exist.
+		</strong>
+	</div>
+</div>
+
+<?php
 	}
 	//echo $username;
 } else {

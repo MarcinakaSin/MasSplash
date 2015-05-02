@@ -27,11 +27,27 @@ if (empty($_POST) === false){
 }
 
 ?>
-<h1>Settings</h1>
+
+<div class="row">
+	<div class="page-header">
+		<h3>Settings</h3>
+	</div>
+</div>
 
 <?php
-if(isset($_GET['success']) && empty($_GET['success'])){
-	echo 'Your details have been updated.';
+if(isset($_GET['success']) && empty($_GET['success'])){ 
+?>
+
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-2 alert alert-success">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>
+			Your details have been updated.
+		</strong>
+	</div>
+</div>
+
+<?php
 } else {
 	if(empty($_POST) === false && empty($errors) === true){
 		//echo $_POST['allow_email'];
@@ -49,12 +65,22 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 	header('Location: settings.php?success' );
 	exit();
 
-	} else if (empty($errors) === false) {
-		echo output_errors($errors);
+	} else if (empty($errors) === false) { ?>
+
+
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>
+			<?php 	echo output_errors($errors);	/*output errors*/  ?>
+		</strong>
+	</div>
+</div>
+
+<?php	
 	}
 ?>
 
-<div class="col-sm-12">
 	<?php
 	if(isset($_FILES['profile']) === true) {
 		if(empty($_FILES['profile']['name']) === true){
@@ -76,37 +102,55 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 				echo implode(', ', $allowed);
 			}
 		}
-	}
+	}	?>
 
-	if(empty($user_data['profile']) === false) { 
+<div class="row">
+	<div class="col-sm-4">
+		<fieldset>
+			<legend> Profile Image</legend>
+<?php	if(empty($user_data['profile']) === false) { 
 		echo '<img src="', $user_data['profile'], '" class="img-thumbnail" alt="', $user_data['first_name'], '\'s Profile Image">';
 	}
 	?>
 
-	<form action="" method="post" enctype="multipart/form-data">
-		<input type="file" name="profile"> <input type="submit" value="Upload Image">
-	</form>
+			<form action="" method="post" enctype="multipart/form-data">
+				<div class="form-group">
+					<input type="file" id="profile" name="profile" />
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Upload Image" class="btn btn-default" />
+				</div>
+			</form>
+		</fieldset>
+	</div>
 </div>
-<div class="col-sm-12">
-	<form action="" method="post">
-		<ul>
-			<li>First name*:<br>
-				<input type="text" name="first_name" value="<?php echo $user_data['first_name']; ?>">
-			</li>
-			<li>Last name:<br>
-				<input type="text" name="last_name" value="<?php echo $user_data['last_name']; ?>">
-			</li>
-			<li>E-mail*:<br>
-				<input type="text" name="email" value="<?php echo $user_data['email']; ?>">
-			</li>
-			<li>
-				<input type="checkbox" name="allow_email" <?php if($user_data['allow_email'] == 1){ echo 'checked="checked"'; } ?> > Would you like to receive email from us?
-			</li>
-			<li>
-				<input type="submit" value="Update">
-			</li>
-		</ul>
-	</form>
+<div class="row">
+	<div class="col-sm-4">
+		<form action="" method="post">
+			<div class="form-group">
+		    	<label for="first_name">First Name*</label>
+				<input type="text" id="first_name" name="first_name" placeholder="First Name" class="form-control" value="<?php echo $user_data['first_name']; ?>" required />
+			</div>
+			<div class="form-group">
+		    	<label for="last_name">Last Name*</label>
+				<input type="text" id="last_name" name="last_name" placeholder="Last Name" class="form-control" value="<?php echo $user_data['last_name']; ?>" required />
+			</div>
+			<div class="form-group">
+		    	<label for="email">E-mail*</label>
+				<input type="text" id="email" name="email" placeholder="E-mail" class="form-control" value="<?php echo $user_data['email']; ?>" required />
+			</div>
+			<div class="form-group">
+			    <div class="checkbox">
+			      	<label>
+						<input type="checkbox" id="allow_email" name="allow_email" <?php if($user_data['allow_email'] == 1){ echo 'checked="checked"'; } ?> /> Would you like to receive email from us?
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Update" class="btn btn-default" />
+			</div>
+		</form>
+	</div>
 </div>
 <?php
 }

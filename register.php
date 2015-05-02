@@ -92,9 +92,9 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 		</strong>
 	</div>
 </div>
-		<?php	}	?>
+<?php	}	?>
 <div class="row">
-	<div class="col-sm-6">
+	<div class="col-sm-4">
 	<form action="" method="post">
 		<div class="form-group">
 	    	<label for="username">Username*</label>
@@ -121,7 +121,7 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 			<input type="text" id="email" name="email" placeholder="E-mail" class="form-control" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" required />
 		</div>
 		<div class="form-group">
-			<input type="submit" class="btn btn-default" value="Register">
+			<input type="submit" class="btn btn-default" value="Register" />
 		</div>
 	</form>
 	</div>

@@ -32,8 +32,12 @@ if(empty($_POST) === false){
 
 include 'includes/overall/header.php'; 
 ?>
-			
-<h1>Change Password</h1>
+	
+<div class="row">
+	<div class="page-header">
+		<h3>Change Password</h3>
+	</div>
+</div>
 
 <?php
 if(isset($_GET['success']) && empty($_GET['success'])) {
@@ -49,32 +53,43 @@ if(isset($_GET['success']) && empty($_GET['success'])) {
 	if(empty($_POST) === false && empty($errors) === true){
 		change_password($dbcon, $session_user_id, $_POST['password']);
 		header('Location: changepassword.php?success');
-	} else if(empty($errors) === false){
-		echo output_errors($errors);
+	} else if(empty($errors) === false){ ?>
+
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>
+			<?php 	echo output_errors($errors);	/*output errors*/  ?>
+		</strong>
+	</div>
+</div>
+
+<?php
 	}
-	?>
+?>
 
-	<form action="" method="post">
-	<ul>
-		<li>
-			Current Password*:<br />
-			<input type="password" name="current_password">
-		</li>
-		<li>
-			New Password*:<br />
-			<input type="password" name="password">
-		</li>
-		<li>
-			Confirm New Password*:<br />
-			<input type="password" name="validate_password">
-		</li>
-		<li>
-			<input type="submit" name="Change Password">
-		</li>
-	</ul>
-	</form>
+<div class="row">
+	<div class="col-sm-4">
+		<form action="" method="post">
+			<div class="form-group">
+		    	<label for="current_password">Current Password*</label>
+				<input type="password" id="current_password" name="current_password" placeholder="Current Password" class="form-control" required />
+			</div>
+			<div class="form-group">
+		    	<label for="password">New Password*</label>
+				<input type="password" id="password" name="password" placeholder="New Password" class="form-control" required />
+			</div>
+			<div class="form-group">
+		    	<label for="validate_password">Confirm New Password*</label>
+				<input type="password" id="validate_password" name="validate_password" placeholder="Confirm New Password" class="form-control" required />
+			</div>
+			<div class="form-group">
+				<input type="submit" name="Change Password" value="Change Password" class="btn btn-default" />
+			</div>
+		</form>
+	</div>
+</div>	
 
-		
 <?php 
 }
 include 'includes/overall/footer.php'; ?>

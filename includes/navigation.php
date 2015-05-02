@@ -9,9 +9,9 @@
       <p class="navbar-brand ">Saving The World
 			<?php 
 			if (logged_in()){  ?>
-				<br /><small class="white-text">Hello, <?php echo $user_data['first_name']; 
+				<br /><small><small class="white-text">Hello, <?php echo $user_data['first_name']; 
 			?>
-				</small>   
+				</small></small>
 			<?php } ?>
 		</p>
 
@@ -22,8 +22,7 @@
         <li><a href="index.php">Home</a></li>
 		    <li><a href="contact.php">Contact Us</a></li>
 		
-    		<?php 
-    		if (logged_in()){  ?>
+    		<?php if (logged_in()){  ?>
 
     		<li><a href="downloads.php">Downloads</a></li>
     		<li><a href="forum.php">Forum</a></li>

@@ -53,12 +53,10 @@ if(empty($errors) === false){
 	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
 		<strong>We tried to log you in, but...</strong>
-<?php
-	echo output_errors($errors);
-}
-?>
+		<?php 	echo output_errors($errors); ?>
 	</div>
 </div>
+<?php } ?>
 <div class="row">
 	<div class="col-sm-4 col-sm-offset-4">
 		<?php include 'includes/widgets/plogin_form.php'; ?> 
