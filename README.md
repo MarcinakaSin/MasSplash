@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/MarcinakaSin/MasSplash.png?label=ready&title=Ready)](https://waffle.io/MarcinakaSin/MasSplash)
 [![Stories in Ready](https://badge.waffle.io/MarcinakaSin/MasSplash.png?label=ready&title=Ready)](http://waffle.io/MarcinakaSin/MasSplash)
 
 What will MasSplash be?
