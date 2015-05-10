@@ -42,6 +42,7 @@ function sanitize($data) {
 function output_errors($errors) {
 
 	// Implode converts arrays into strings, appends first argument if multiple.
-	return '<ul><li>' . implode('</li><li>', $errors) . '</li></ul>';
+	//return '<ul><li>' . implode('</li><li>', $errors) . '</li></ul>';
+		return implode('<br />', $errors);
 }
 ?>

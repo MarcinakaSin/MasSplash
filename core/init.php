@@ -1,6 +1,51 @@
 <?php
 //starts session storage
 session_start();
+
+$GLOBALS['config'] = array(
+	'mysql' => array(
+		'host' => 'localhost',
+		'username' => 'root',
+		'password' => '',
+		'db' => 'massplashdb'
+	),
+	'remember' => array(
+		'cookie_name' => 'hash',
+		'cookie_expiry' => 604800
+	),
+	'session' => array(
+		'session_name' => 'user',
+		'token_name' => 'token'
+	)
+);
+
+// (spl: standard php library) allows a class to be pulled on the fly when it is required.
+spl_autoload_register(function($class){
+	require_once 'classes/' . $class . '.php';
+});
+
+require_once 'functions/sanitize.php';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////// OLD CODE /////////////////////////////////////
+
+
 // 0 eliminates errors from displaying.
 //error_reporting(0);
 

@@ -1,6 +1,12 @@
 <?php 
 include 'core/init.php';
+
+
 include 'includes/overall/header.php'; 
+
+if(Session::exists('success')) {
+	echo Session::flash('success');
+}
 ?>
 <div class="row">
 	<div class="page-header">
@@ -35,4 +41,23 @@ include 'includes/overall/header.php';
 
 
 
-<?php include 'includes/overall/footer.php'; ?>
+<?php 
+
+/*$userUpdate = DB::getInstance()->update('users', 3, array(
+	'password' 	=> 'newpassword',
+	'name'		=> 'Dail xxx'
+
+));
+
+//DB::getInstance();
+//echo Config::get('mysql/host'); // '127.0.0.1'
+$user = DB::getInstance()->get('users', array('username', '=', 'marcin'));
+
+if(!$user->count()){
+	echo 'No user';
+} else { 
+	//echo $user->results()[0]->username;
+	echo $user->first()->username;
+}*/
+
+include 'includes/overall/footer.php'; ?>

@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <p class="navbar-brand ">Saving The World
+      <p class="navbar-brand ">MasSplash
 			<?php 
 			if (logged_in()){  ?>
 				<br /><small><small class="white-text">Hello, <?php echo $user_data['first_name']; 
