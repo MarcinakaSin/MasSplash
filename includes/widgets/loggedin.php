@@ -2,10 +2,10 @@
 	<div class="col-sm-12">
 		<small class="white-text" style="margin:5px;">
 		<?php
-			$user_count	= user_count($dbcon);
-			$suffix = ($user_count != 1) ? 's' : '';
+			//$user_count	= user_count($dbcon);
+			//$suffix = ($user_count != 1) ? 's' : '';
 		?>
-		We currently have <?php echo user_count($dbcon); ?> registered user<?php echo $suffix; ?>.
+		We currently have <?php //echo user_count($dbcon); ?> registered user<?php //echo $suffix; ?>.
 		</small><br />
 		<p class="pull-right" style="margin:5px;">
 		<a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Log out</a>

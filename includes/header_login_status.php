@@ -1,5 +1,5 @@
 <?php 
-	if (logged_in()){
+	if ($user->isLoggedIn()){
 		include 'includes/widgets/loggedin.php'; 
 	} else {
 		include 'includes/widgets/login.php'; 

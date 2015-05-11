@@ -111,4 +111,10 @@ class Validate {
 	public function passed() {
 		return $this->_passed;
 	}
+
+	public function output_errors($errors) {
+	// Implode converts arrays into strings, appends first argument if multiple.
+	//return '<ul><li>' . implode('</li><li>', $errors) . '</li></ul>';
+		return implode('<br />', $errors);
+	}
 }

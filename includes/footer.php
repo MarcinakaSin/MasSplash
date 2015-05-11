@@ -1,6 +1,6 @@
 <?php
 // Disconnect from Database
-mysqli_close($dbcon);
+//mysqli_close($dbcon);
 ?>
 <footer class="footer">
   	<div class="container">

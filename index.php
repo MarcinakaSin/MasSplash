@@ -1,12 +1,12 @@
 <?php 
-include 'core/init.php';
+include 'core/OOP_init.php';
 
 
 include 'includes/overall/header.php'; 
 
-if(Session::exists('success')) {
+/*if(Session::exists('success')) {
 	echo Session::flash('success');
-}
+}*/
 ?>
 <div class="row">
 	<div class="page-header">
@@ -14,9 +14,14 @@ if(Session::exists('success')) {
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-12">
+	<div class="col-md-6">
+		<fieldset class="videos"><legend>The Wombats</legend>
+		<iframe width="450" height="300" src="https://www.youtube.com/embed/TpxuaIYiHgs" frameborder="0" allowfullscreen></iframe>
+		</fieldset>
+	</div>
+	<div class="col-md-6">
 		<p>
-			Just a template.<br />
+			
 			This site was built and costumized by Marcin Ufnairz.  
 			I have a repository for it on <a href="https://github.com/" target="_new">GitHub</a> and anyone is permited to copy this site 
 			and use it's code for any creative purposes.<br />
@@ -28,13 +33,13 @@ if(Session::exists('success')) {
 <div class="row">
 	<div class="col-sm-12">
 		<?php 
-			if (logged_in() === true){  
+			/*if (logged_in() === true){  
 				if (has_access($dbcon, $session_user_id, 1) === true){
 					echo 'Admin';
 				} else if (has_access($dbcon, $session_user_id, 2) === true){
 					echo 'Moderator!';
 				}
-			} 
+			} */
 		?>
 	</div>
 </div>

@@ -8,9 +8,12 @@
       </button>
       <p class="navbar-brand ">MasSplash
 			<?php 
-			if (logged_in()){  ?>
-				<br /><small><small class="white-text">Hello, <?php echo $user_data['first_name']; 
-			?>
+			if ($user->isLoggedIn()){  ?>
+				<br /><small><small class="white-text">Hello, <a href="#">
+        <?php 
+          echo escape($user->data()->username); 
+			  ?>
+        </a>
 				</small></small>
 			<?php } ?>
 		</p>
@@ -22,7 +25,7 @@
         <li><a href="index.php">Home</a></li>
 		    <li><a href="contact.php">Contact Us</a></li>
 		
-    		<?php if (logged_in()){  ?>
+    		<?php if ($user->isLoggedIn()){  ?>
 
     		<li><a href="downloads.php">Downloads</a></li>
     		<li><a href="forum.php">Forum</a></li>

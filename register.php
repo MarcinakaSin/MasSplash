@@ -1,7 +1,7 @@
 ﻿<?php
-include 'core/init.php';
+include 'core/OOP_init.php';
 // prevents and redirects logged in users from accessing this page.
-logged_in_redirect();
+//logged_in_redirect();
 include 'includes/overall/header.php'; 
 
 $errors = array();
@@ -37,8 +37,32 @@ if(Input::exists()) {
 		));
 
 		if($validation->passed()) {
+			$user = new User();
+
+			$salt = Hash::salt(32);
+
+			try {
+
+				$user->create(array(
+					'username' => Input::get('username'),
+					'password' => Hash::make(Input::get('password'), $salt),
+					'salt' => $salt,
+					//'email' => Input::get('email'),
+					'name' => Input::get('first_name'),
+					//'name_firt' => Input::get('name_first'),
+					//'name_last' => Input::get('name_last'),
+					'joined' => date('Y-m-d H:i:s'),
+					'group' => 1
+				));
+
+			} catch(Exception $e) {
+				die($e->getMessage());
+			}
+
+
 			Session::flash('success', 'You registered successfully!');
-			header('Location: index.php');
+			Redirect::to(404);
+			//header('Location: index.php');
 		} else {
 			$errors = $validation->errors();
 		}
@@ -59,7 +83,7 @@ if($errors != null) {
 	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
 		<strong>
-			<?php 	echo output_errors($errors);	/*output errors*/  ?>
+			<?php 	echo Validate::output_errors($errors);	/*output errors*/  ?>
 		</strong>
 	</div>
 </div>

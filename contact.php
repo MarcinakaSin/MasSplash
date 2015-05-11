@@ -1,5 +1,5 @@
 <?php 
-include 'core/init.php';
+include 'core/OOP_init.php';
 include 'includes/overall/header.php'; 
 ?>
 

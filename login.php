@@ -1,9 +1,40 @@
 <?php
-include 'core/init.php';
+include 'core/OOP_init.php';
 // prevents and redirects logged in users from accessing this page.
-logged_in_redirect();
+//logged_in_redirect();
 
-if(!isset($_GET['new']) && empty($_GET['new'])){
+if(Input::exists()) {
+	if(Token::check(Input::get('token'))) {
+		$validate = new Validate();
+		$validation = $validate->check($_POST, array(
+			'username' => array(
+				'required' => true
+			),
+			'password' => array(
+				'required' => true
+			)
+		));
+
+		if($validation->passed()) {
+			$user = new User();
+
+			$remember = (Input::get('remember') === 'on') ? true : false;
+			$login = $user->login(Input::get('username'), Input::get('password'), $remember);
+
+			if($login) {
+				Redirect::to('index.php');
+			} else {
+				echo '<br /><br /><br />Sorry, logging in failed';
+			}
+		} else {
+			foreach($validation->errors() as $error) {
+				echo $error, '<br />';
+			}
+		}
+	}
+}
+
+/*if(!isset($_GET['new']) && empty($_GET['new'])){
 	if (empty($_POST) === false) {
 		$username = trim($_POST['username']);
 		$password = trim($_POST['password']);
@@ -38,7 +69,7 @@ if(!isset($_GET['new']) && empty($_GET['new'])){
 	} else {
 		$errors[] = 'No data received.';
 	}
-}
+}*/
 include 'includes/overall/header.php';
 ?>
 <div class="row">
@@ -53,7 +84,7 @@ if(empty($errors) === false){
 	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
 		<strong>We tried to log you in, but...</strong>
-		<?php 	echo output_errors($errors); ?>
+		<?php 	//echo output_errors($errors); ?>
 	</div>
 </div>
 <?php } ?>
