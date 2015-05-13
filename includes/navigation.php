@@ -32,7 +32,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">User Settings <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="/MasSplash/<?php echo $user_data['username']; ?>">Profile</a></li>
+                <li><a href="/MasSplash/<?php echo escape($user->data()->username); ?>">Profile</a></li>
                 <li><a href="changepassword.php">Change Password</a></li>
                 <li><a href="settings.php">Settings</a></li>
                 <!--<li class="divider"></li>

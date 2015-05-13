@@ -1,5 +1,5 @@
 ﻿<?php
-include 'core/OOP_init.php';
+include 'core/init.php';
 // prevents and redirects logged in users from accessing this page.
 //logged_in_redirect();
 include 'includes/overall/header.php'; 

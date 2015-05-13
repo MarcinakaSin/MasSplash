@@ -1,6 +1,6 @@
 <?php 
 include 'core/init.php';
-protect_page();
+//protect_page();
 include 'includes/overall/header.php'; 
 ?>
 

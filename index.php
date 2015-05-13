@@ -1,18 +1,25 @@
 <?php 
-include 'core/OOP_init.php';
-
-
+include 'core/init.php';
 include 'includes/overall/header.php'; 
 
-/*if(Session::exists('success')) {
-	echo Session::flash('success');
-}*/
+
 ?>
 <div class="row">
 	<div class="page-header">
 		<h3>Home</h3>
 	</div>
 </div>
+
+<?php if(Session::exists('home')) { ?>
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-2 alert alert-success">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<strong>
+			<?php echo Session::flash('home'); ?>
+		</strong>
+	</div>
+</div>
+<?php }	?>
 <div class="row">
 	<div class="col-md-6">
 		<fieldset class="videos"><legend>The Wombats</legend>
@@ -33,13 +40,11 @@ include 'includes/overall/header.php';
 <div class="row">
 	<div class="col-sm-12">
 		<?php 
-			/*if (logged_in() === true){  
-				if (has_access($dbcon, $session_user_id, 1) === true){
-					echo 'Admin';
-				} else if (has_access($dbcon, $session_user_id, 2) === true){
-					echo 'Moderator!';
+			//if($user->isLoggedIn()) {
+				if($user->hasPermission('admin')) {
+					echo "You have Administrator permissions!";
 				}
-			} */
+			//}
 		?>
 	</div>
 </div>

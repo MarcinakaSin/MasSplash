@@ -1,50 +1,30 @@
 <?php 
-include 'core/init.php';
+require_once 'core/init.php';
 include 'includes/overall/header.php'; 
-
-
-if(isset($_GET['username']) === true && empty($_GET['username']) === false){
+//if(!isset($_GET['username']) === true && !empty($_GET['username']) === false){
+if(!$username = Input::get('username')) {
+	Redirect::to('index.php');
+} else {
 	$username	= $_GET['username'];
-	
-	if(user_exists($dbcon, $username) === true){
-	$user_id	= user_id_from_username($dbcon, $username);
-	$profile_data	= user_data($dbcon, $user_id, 'first_name', 'last_name', 'email');
-	?>
+	$user = new User($username);
+	if(!$user->exists()) {
+		Redirect::to(404);
+	} else {
+		$data = $user->data();
+	}
+}
+?>
 
 
 <div class="row">
 	<div class="page-header">
-		<h3><?php echo $profile_data['first_name'] ?>'s Profile</h3>
+		<h3><?php echo escape($data->username); ?>'s Profile</h3>
 	</div>
 </div>
 <div class="row">
 	<div>
-		<p><?php echo $profile_data['email'] ?></p>
+		<p><?php echo escape($data->name); ?></p>
 	</div>
 </div>
-
-
-<?php
-	} else { 
-?>
-
-<div class="row">
-	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
-		<a href="#" class="close" data-dismiss="alert">&times;</a>
-		<strong>
-			Sorry, that user doesn\'t exist.
-		</strong>
-	</div>
-</div>
-
-<?php
-	}
-	//echo $username;
-} else {
-	header('Location: index.php');
-	exit();
-}
-?>
-
 		
 <?php include 'includes/overall/footer.php'; ?>

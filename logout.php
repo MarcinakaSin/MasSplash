@@ -1,5 +1,5 @@
 <?php
-require_once 'core/OOP_init.php';
+require_once 'core/init.php';
 
 $user->logout();
 

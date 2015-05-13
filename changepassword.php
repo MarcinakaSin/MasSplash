@@ -1,5 +1,5 @@
 <?php 
-include 'core/OOP_init.php';
+include 'core/init.php';
 
 if(!$user->isLoggedIn()) {
 	Redirect::to('index.php');
@@ -41,7 +41,7 @@ if(Input::exists()) {
 					'salt' => $salt
 				));
 
-				Session::flash('home', 'Your password has been changed');
+				Session::flash('home', 'Your password has been changed.');
 				Redirect::to('index.php');
 			}
 		} else {

@@ -8,13 +8,12 @@ class Config {
 			foreach ($path as $bit) {
 				if(isset($config[$bit])){
 					$config = $config[$bit];
-				} /*else {
-					$config = false;
-				}*/
+				}
 			}
 
 			return $config;
 		}
+		
 		return false;
 	}
 } 

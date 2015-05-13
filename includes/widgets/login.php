@@ -7,12 +7,13 @@
 			<div class="form-group">
 				<input type="password" name="password" placeholder="Password" class="form-control">
 			</div>
-			<button type="submit" class="btn btn-success" style="margin-right: 5px;">Sign in</button>
+			<input type="hidden" name="token" value="<?php echo Token::generate(); ?>" />
+			<button type="submit" class="btn btn-success" style="margin-right: 5px;">Sign In</button>
 		</div>
 		<div class="col-xs-10 visible-xs visible-sm">
 			<a href="login.php?new">Log In!</a>
 		</div>
-		<div class="col-xs-2 visible-xs visible-sm">
+		<div class="col-xs-2 visible-xs visible-sm"> 
 		</div>
 	</div>
 	<div class="row white-text">

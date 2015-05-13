@@ -18,14 +18,14 @@ class Validate {
 
 				$value = trim($source[$item]);
 				$item = escape($item);
-
+				if($rule === 'rename') {
+					$valid_name[$item] = $rule_value;
+				}
+				
 				if($rule === 'required' && empty($value)) {
-					$this->addError("{$item} is required.");
+					$this->addError("{$valid_name[$item]} is required.");
 				} else if(!empty($value)) {
 					switch($rule) {
-						case 'rename':
-							$valid_name[$item] = $rule_value;
-						break;
 						// sets a min value of characters
 						case 'min':
 							if(strlen($value) < $rule_value) {

@@ -1,35 +1,39 @@
 <?php
-include 'core/OOP_init.php';
+require_once 'core/init.php';
 // prevents and redirects logged in users from accessing this page.
-//logged_in_redirect();
+if($user->isLoggedIn()) {
+	Redirect::to('index.php');
+}
 
+$errors = array();
 if(Input::exists()) {
 	if(Token::check(Input::get('token'))) {
 		$validate = new Validate();
 		$validation = $validate->check($_POST, array(
 			'username' => array(
+				'rename' => 'Username',
 				'required' => true
 			),
 			'password' => array(
+				'rename' => 'Password',
 				'required' => true
 			)
 		));
 
 		if($validation->passed()) {
-			$user = new User();
+			//$user = new User();
 
 			$remember = (Input::get('remember') === 'on') ? true : false;
 			$login = $user->login(Input::get('username'), Input::get('password'), $remember);
 
 			if($login) {
+				Session::flash('home', 'You have successfully logged in.');
 				Redirect::to('index.php');
 			} else {
-				echo '<br /><br /><br />Sorry, logging in failed';
+				$errors[] = "Sorry, logging in failed.";
 			}
 		} else {
-			foreach($validation->errors() as $error) {
-				echo $error, '<br />';
-			}
+			$errors = $validation->errors();
 		}
 	}
 }
@@ -77,14 +81,11 @@ include 'includes/overall/header.php';
 		<h3>Login!</h3>
 	</div>
 </div>
-<?php
-if(empty($errors) === false){
-?>
+<?php if($errors){ ?>
 <div class="row">
 	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
-		<strong>We tried to log you in, but...</strong>
-		<?php 	//echo output_errors($errors); ?>
+		<?php echo Validate::output_errors($errors); ?>
 	</div>
 </div>
 <?php } ?>
