@@ -10,34 +10,8 @@ class Validate {
 	}
 
 	public function check($source, $items = array()) {
+		
 		$valid_name = array();
-
-		foreach($items as $item => $rules) { // Used to store Names for validation field names
-			foreach($rules as $rule => $rule_value) {
-				$rule_vlaue = trim($rule_value);
-
-				switch($item){
-					case 'username':
-						$valid_name[$item] = "Username";
-					break;
-					case 'firt_name':
-						$valid_name[$item] = "First Name";
-					break;
-					case 'last_name':
-						$valid_name[$item] = "Last Name";
-					break;
-					case 'email':
-						$valid_name[$item] = "E-mail";
-					break;
-					case 'password':
-						$valid_name[$item] = "Password";
-					break;
-					case 'validate_password':
-						$valid_name[$item] = "Confirm Password";
-					break;
-				}
-			}
-		}
 
 		foreach($items as $item => $rules) {
 			foreach($rules as $rule => $rule_value) {
@@ -49,6 +23,9 @@ class Validate {
 					$this->addError("{$item} is required.");
 				} else if(!empty($value)) {
 					switch($rule) {
+						case 'rename':
+							$valid_name[$item] = $rule_value;
+						break;
 						// sets a min value of characters
 						case 'min':
 							if(strlen($value) < $rule_value) {

@@ -1,33 +1,53 @@
 <?php 
-include 'core/init.php';
-protect_page();
+include 'core/OOP_init.php';
 
-if(empty($_POST) === false){
-	$required_fields = array('current_password', 'password', 'validate_password');
-	foreach ($_POST as $key => $value) {
-		if(empty($value) && in_array($key, $required_fields) === true){
-			$errors[] = 'Fields marked with an asterisk are required.';
-			break 1;
+if(!$user->isLoggedIn()) {
+	Redirect::to('index.php');
+}
+
+$errors = array();
+if(Input::exists()) {
+	if(Token::check(Input::get('token'))) {
+
+		$validate = new Validate();
+		$validation = $validate->check($_POST, array(
+			'current_password' => array(
+				'rename' => 'Current Password',
+				'required' => true,
+				'min' => 6
+			),
+			'password' => array(
+				'rename' => 'New Password',
+				'required' => true,
+				'min' => 6
+			),
+			'validate_password' => array(
+				'rename' => 'Confirm New Password',
+				'required' => true,
+				'min' => 6,
+				'match' => 'password'
+			)
+		));
+
+		if($validation->passed()) {
+			if(Hash::make(Input::get('current_password'), $user->data()->salt) !== $user->data()->password) {
+
+				array_push($errors, "The Current Password you have entered is incorrect.");
+			} else {
+
+				$salt = Hash::salt(32);
+				$user->update(array(
+					'password' => Hash::make(Input::get('password'), $salt),
+					'salt' => $salt
+				));
+
+				Session::flash('home', 'Your password has been changed');
+				Redirect::to('index.php');
+			}
+		} else {
+			$errors = $validation->errors();
 		}
 	}
-
-	if(md5($_POST['current_password']) === $user_data['password']){
-
-		// Compares password with confirm password.
-		if(trim($_POST['password']) !== trim($_POST['validate_password'])) {
-			$errors[] = 'Your new passwords do not match.';
-		// Checks to see if password is at least 6 charaters.
-		} else if(strlen(trim($_POST['password'])) < 6) {
-			$errors[] = 'Your password must be at least 6 characters.';
-		} else if (trim($_POST['current_password']) === trim($_POST['password'])){
-			$errors[] = 'Your new password is the same as your old password.';
-		}
-
-	} else {
-		$errors[] = "Your current password is incorrect.";
-	}
-
-	//print_r($errors);
 }
 
 include 'includes/overall/header.php'; 
@@ -39,34 +59,18 @@ include 'includes/overall/header.php';
 	</div>
 </div>
 
-<?php
-if(isset($_GET['success']) && empty($_GET['success'])) {
-	echo 'Your password has been changed.';
-
-} else {
-	if(isset($_GET['force']) && empty($_GET['force'])) {
-	?>
-	<p> You must change your password. </p>
-	<?php
-	}
-		// If data is posted and there's no errors.
-	if(empty($_POST) === false && empty($errors) === true){
-		change_password($dbcon, $session_user_id, $_POST['password']);
-		header('Location: changepassword.php?success');
-	} else if(empty($errors) === false){ ?>
+<?php if($errors) { ?>
 
 <div class="row">
 	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
 		<strong>
-			<?php 	echo output_errors($errors);	/*output errors*/  ?>
+			<?php 	echo Validate::output_errors($errors);	/*output errors*/  ?>
 		</strong>
 	</div>
 </div>
 
-<?php
-	}
-?>
+<?php } ?>
 
 <div class="row">
 	<div class="col-sm-4">
@@ -84,12 +88,11 @@ if(isset($_GET['success']) && empty($_GET['success'])) {
 				<input type="password" id="validate_password" name="validate_password" placeholder="Confirm New Password" class="form-control" required />
 			</div>
 			<div class="form-group">
+				<input type="hidden" name="token" value="<?php echo Token::generate(); ?>" />
 				<input type="submit" name="Change Password" value="Change Password" class="btn btn-default" />
 			</div>
 		</form>
 	</div>
 </div>	
 
-<?php 
-}
-include 'includes/overall/footer.php'; ?>
+<?php include 'includes/overall/footer.php'; ?>

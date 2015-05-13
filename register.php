@@ -76,9 +76,7 @@ if(Input::exists()) {
 	</div>
 </div>
 
-<?php
-if($errors != null) {
-?>
+<?php if($errors != null) { ?>
 <div class="row">
 	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>

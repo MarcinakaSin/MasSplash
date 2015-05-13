@@ -1,10 +1,46 @@
 <?php 
-include 'core/init.php';
-protect_page();
+include 'core/OOP_init.php';
+
+if(!$user->isLoggedIn()) {
+	Redirect::to('index.php');
+}
 
 include 'includes/overall/header.php'; 
 
-if (empty($_POST) === false){
+$errors = array();
+if(Input::exists()) {
+	if(Token::check(Input::get('token'))) {
+		$validate = new Validate();
+		$validation = $validate->check($_POST, array(
+			'first_name' => array(
+				'required' => true,
+				'min' => 2,
+				'max' => 50
+
+			)
+		));
+
+		if($validation->passed()) {
+
+			try {
+				$user->update(array(
+					'name' => Input::get('first_name')
+				));
+
+				Session::flash('home', 'Your details have been updated.');
+				Redirect::to('index.php');
+
+			} catch(Exception $e) {
+				die($e->getMessage());
+			}
+
+		} else {
+			$errors = $validation->errors();
+		}
+	}
+}
+
+/*if (empty($_POST) === false){
 	$required_fields = array('first_name', 'email');
 	// Loops through each field and assigns value
 	foreach($_POST as $key=>$value){
@@ -24,7 +60,7 @@ if (empty($_POST) === false){
 		}
 	}
 	//print_r($errors);
-}
+} */
 
 ?>
 
@@ -35,7 +71,7 @@ if (empty($_POST) === false){
 </div>
 
 <?php
-if(isset($_GET['success']) && empty($_GET['success'])){ 
+/*if(isset($_GET['success']) && empty($_GET['success'])){ 
 ?>
 
 <div class="row">
@@ -65,14 +101,16 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 	header('Location: settings.php?success' );
 	exit();
 
-	} else if (empty($errors) === false) { ?>
+	} else if (empty($errors) === false) { */ 
+
+	if($errors != null) {	?>
 
 
 <div class="row">
 	<div class="col-sm-8 col-sm-offset-2 alert alert-danger">
 		<a href="#" class="close" data-dismiss="alert">&times;</a>
 		<strong>
-			<?php 	echo output_errors($errors);	/*output errors*/  ?>
+			<?php 	echo Validate::output_errors($errors);	/*output errors*/  ?>
 		</strong>
 	</div>
 </div>
@@ -81,7 +119,7 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 	}
 ?>
 
-	<?php
+	<?php /*
 	if(isset($_FILES['profile']) === true) {
 		if(empty($_FILES['profile']['name']) === true){
 		echo "Please choose a file!";
@@ -102,15 +140,15 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 				echo implode(', ', $allowed);
 			}
 		}
-	}	?>
+	}	*/?>
 
 <div class="row">
 	<div class="col-sm-4">
 		<fieldset>
 			<legend> Profile Image</legend>
-<?php	if(empty($user_data['profile']) === false) { 
+<?php	/*if(empty($user_data['profile']) === false) { 
 		echo '<img src="', $user_data['profile'], '" class="img-thumbnail" alt="', $user_data['first_name'], '\'s Profile Image">';
-	}
+	} */
 	?>
 
 			<form action="" method="post" enctype="multipart/form-data">
@@ -129,30 +167,31 @@ if(isset($_GET['success']) && empty($_GET['success'])){
 		<form action="" method="post">
 			<div class="form-group">
 		    	<label for="first_name">First Name*</label>
-				<input type="text" id="first_name" name="first_name" placeholder="First Name" class="form-control" value="<?php echo $user_data['first_name']; ?>" required />
+				<input type="text" id="first_name" name="first_name" placeholder="First Name" class="form-control" value="<?php echo escape($user->data()->name); ?>" required />
 			</div>
 			<div class="form-group">
 		    	<label for="last_name">Last Name*</label>
-				<input type="text" id="last_name" name="last_name" placeholder="Last Name" class="form-control" value="<?php echo $user_data['last_name']; ?>" required />
+				<input type="text" id="last_name" name="last_name" placeholder="Last Name" class="form-control" value="<?php //echo $user_data['last_name']; ?>" required />
 			</div>
 			<div class="form-group">
 		    	<label for="email">E-mail*</label>
-				<input type="text" id="email" name="email" placeholder="E-mail" class="form-control" value="<?php echo $user_data['email']; ?>" required />
+				<input type="text" id="email" name="email" placeholder="E-mail" class="form-control" value="<?php //echo $user_data['email']; ?>" required />
 			</div>
 			<div class="form-group">
 			    <div class="checkbox">
 			      	<label>
-						<input type="checkbox" id="allow_email" name="allow_email" <?php if($user_data['allow_email'] == 1){ echo 'checked="checked"'; } ?> /> Would you like to receive email from us?
+						<input type="checkbox" id="allow_email" name="allow_email" <?php //if($user_data['allow_email'] == 1){ echo 'checked="checked"'; } ?> /> Would you like to receive email from us?
 					</label>
 				</div>
 			</div>
 			<div class="form-group">
+				<input type="hidden" name="token" value="<?php echo Token::generate(); ?>" />
 				<input type="submit" value="Update" class="btn btn-default" />
 			</div>
 		</form>
 	</div>
 </div>
 <?php
-}
+//}
 include 'includes/overall/footer.php'; 
 ?>
