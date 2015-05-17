@@ -177,7 +177,7 @@ function user_data($dbcon, $user_id) {
 }
 
 
-function logged_in() {
+/*function logged_in() {
 	return (isset($_SESSION['user_id'])) ? true : false;
 }
 
@@ -198,7 +198,7 @@ function user_exists($dbcon, $username) {
 	// Returns value from function
 	return ($user_count == 1) ? true : false;
 
-}
+}*/
 
 function email_exists($dbcon, $email){
 	//$email = sanitize($email);

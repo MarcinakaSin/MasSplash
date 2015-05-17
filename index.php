@@ -40,11 +40,9 @@ include 'includes/overall/header.php';
 <div class="row">
 	<div class="col-sm-12">
 		<?php 
-			//if($user->isLoggedIn()) {
-				if($user->hasPermission('admin')) {
-					echo "You have Administrator permissions!";
-				}
-			//}
+			if($user->hasPermission('admin')) {
+				echo "You have Administrator permissions!";
+			}
 		?>
 	</div>
 </div>

@@ -1,3 +1,5 @@
+
+
 <form class="navbar-form navbar-right" action="login.php" method="post">
 	<div class="row">
 		<div class="col-md-12 hidden-xs hidden-sm margin-right">
@@ -17,7 +19,12 @@
 		</div>
 	</div>
 	<div class="row white-text">
-		<div class="col-md-12 hidden-xs hidden-sm">
+		<div class="checkbox col-md-4 hidden-xs hidden-sm">
+	    	<label for="remember">
+				<input type="checkbox" id="remember" name="remember" placeholder="Remember Me" /> Remember Me!
+			</label>
+		</div>
+		<div class="col-md-8 hidden-xs hidden-sm">
 			Forgotten your <a href="recover.php?mode=username">Username</a> or <a href="recover.php?mode=password">Password</a>?
 		</div>
 	</div>
