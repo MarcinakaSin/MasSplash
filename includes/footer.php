@@ -4,7 +4,7 @@
 ?>
 <footer class="footer">
   	<div class="container">
-    	<p class="text-muted">&copy; Marcin</p>
+    	<p class="text-muted">&copy; MasSplash</p>
   	</div>
 </footer>
 

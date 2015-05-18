@@ -91,11 +91,11 @@ class DB {
 
 		$sql = "INSERT INTO {$table} (`" . implode('`, `', $keys) . "`) VALUES ({$values})";
 
-		if(!$this->query($sql, $fields)){
+		if($this->query($sql, $fields)){
 			return true;
 		}
-			//out.print($sql);
-		return false;
+			echo "<br /><br /><br />" . $sql;
+		//return false;
 	}
 
 	public function update($table, $id, $fields) {
