@@ -94,8 +94,8 @@ class DB {
 		if($this->query($sql, $fields)){
 			return true;
 		}
-			echo "<br /><br /><br />" . $sql;
-		//return false;
+			//echo "<br /><br /><br />" . $sql;
+		return false;
 	}
 
 	public function update($table, $id, $fields) {
